@@ -1,0 +1,38 @@
+spring:
+
+  data:
+    neo4j:
+      #      neo4juri: bolt://192.168.10.183:7687
+      username: neo4j
+      password: 123456
+      uri: http://192.168.10.183:7474
+
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    schema: classpath:/db/schema-h2.sql
+#    data: classpath:/db/data-h2.sql
+#    url: jdbc:h2:mem:test
+#    username: root
+#    password: 1234
+#
+#  h2:
+#    console:
+#      settings:
+#        web-allow-others: true
+#      enabled: true
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.79.129:3306/cdh?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      username: root
+      password: root
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+server:
+  port: 8080
