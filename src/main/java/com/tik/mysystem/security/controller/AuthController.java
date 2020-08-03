@@ -24,8 +24,8 @@ public class AuthController {
         userService.saveUser(user);
     }
 
-//    @PostMapping("/login")
-//    public boolean login(@RequestBody LoginUser user) {
-//        return userService.login(user);
-//    }
+    @PostMapping("/login")
+    public boolean login(@RequestBody LoginUser user) {
+        return userService.login(user);
+    }
 }
