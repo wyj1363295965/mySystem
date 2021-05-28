@@ -1,8 +1,8 @@
 package com.tik.mysystem.system.controller;
 
 
-import com.tik.mysystem.security.entity.CurrentUser;
 import com.tik.mysystem.system.entity.User;
+import com.tik.mysystem.security.entity.CurrentUser;
 import com.tik.mysystem.system.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.data.domain.Page;
