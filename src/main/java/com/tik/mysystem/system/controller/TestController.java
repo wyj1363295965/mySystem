@@ -1,19 +1,38 @@
 package com.tik.mysystem.system.controller;
 
+import com.tik.mysystem.system.entity.WorkWxNotifyVo;
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.apache.commons.io.IOUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Api(value = "测试接口", tags = {"3"})
 @RestController
 @RequestMapping("/apitest")
+@Slf4j
 public class TestController {
 
     @PostMapping("/register")
     @PreAuthorize("hasAnyRole('TEST')")
     public String registerUser() {
         return "test";
+    }
+
+    @RequestMapping(path = "/workWxNotify", method = RequestMethod.POST)
+    public void getChangeEventData(@RequestBody WorkWxNotifyVo workWxNotifyVo, HttpServletRequest request) throws IOException {
+        System.out.println(workWxNotifyVo);
+        InputStream inputStream = request.getInputStream();
+        String sPostData = IOUtils.toString(inputStream, "UTF-8");
+        log.info("sPostData：{}", sPostData);
+    }
+
+    @RequestMapping(path = "/workWxNotify1", method = RequestMethod.POST)
+    public void getChangeEventData1(@RequestBody WorkWxNotifyVo workWxNotifyVo) throws IOException {
+        System.out.println(workWxNotifyVo);
     }
 }
