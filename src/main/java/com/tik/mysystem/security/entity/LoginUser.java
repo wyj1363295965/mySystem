@@ -2,8 +2,6 @@ package com.tik.mysystem.security.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-
 
 /**
  * @author shuang.kou

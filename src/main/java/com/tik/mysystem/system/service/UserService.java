@@ -6,14 +6,12 @@ import com.tik.mysystem.system.entity.User;
 import com.tik.mysystem.system.enums.UserStatus;
 import com.tik.mysystem.system.exception.UserNameAlreadyExistException;
 import com.tik.mysystem.system.repository.UserRepository;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
 import java.util.Optional;
 
 /**

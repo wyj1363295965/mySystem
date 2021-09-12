@@ -2,7 +2,6 @@ package com.tik.mysystem.system.repository;
 
 
 import com.tik.mysystem.system.entity.User;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

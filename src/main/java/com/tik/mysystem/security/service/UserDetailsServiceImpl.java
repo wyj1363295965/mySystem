@@ -1,8 +1,8 @@
 package com.tik.mysystem.security.service;
 
 
-import com.tik.mysystem.security.entity.JwtUser;
 import com.tik.mysystem.system.entity.User;
+import com.tik.mysystem.security.entity.JwtUser;
 import com.tik.mysystem.system.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
