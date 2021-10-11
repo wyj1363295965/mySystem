@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.regex.Pattern;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MainApplication.class)
 public class EcodeTest {
@@ -29,6 +31,16 @@ public class EcodeTest {
     public void test() {
         String data = "<xml><ToUserName><![CDATA[wwdaa1d03fe0ce906c]]></ToUserName><FromUserName><![CDATA[sys]]></FromUserName><CreateTime>1631067332</CreateTime><MsgType><![CDATA[event]]></MsgType><Event><![CDATA[change_contact]]></Event><ChangeType><![CDATA[update_user]]></ChangeType><UserID><![CDATA[4403012641]]></UserID><Name><![CDATA[王亚杰1]]></Name></xml>";
 
+
+    }
+
+    @Test
+    public void test2() {
+        Pattern INVOICE_TAX_EXCLUSION = Pattern.compile("^((-?[1-9]{1}\\d*)|([0]{1}))(\\.(\\d){1,2})?$");
+
+        System.out.println(INVOICE_TAX_EXCLUSION.matcher("98246833.64").matches());
+
+        System.out.println(INVOICE_TAX_EXCLUSION.matcher("98246833.64").matches() == false);
 
     }
 }

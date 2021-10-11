@@ -4,6 +4,9 @@ import com.google.common.collect.Lists;
 import com.tik.mysystem.MainApplication;
 import com.tik.mysystem.system.entity.User1;
 import com.tik.mysystem.generator.mapper.FreightConfigMapper;
+import com.tik.mysystem.system.hystrix.RequestCommand;
+import com.tik.mysystem.system.service.ThreadPoolService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +16,21 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MainApplication.class)
+@Slf4j
 public class CommonTest {
 
     @Autowired
     private FreightConfigMapper freightConfigMapper;
+    @Autowired
+    private ThreadPoolService threadPoolService;
 
     public static void main(String[] args) {
         double a = 0.211;
@@ -67,5 +76,44 @@ public class CommonTest {
     @Test
     public void test3() {
         System.out.println(freightConfigMapper.selectByPrimaryKey(3));
+    }
+
+    @Test
+    public void test4() {
+        RequestCommand command = new RequestCommand("");
+        String result = command.execute();
+        System.out.println(result);
+    }
+
+
+    @Test
+    public void test5() {
+        Integer i = 3;
+        System.out.println(Objects.equals(i, 3));
+        for (int j = 0; j < 100; j++) {
+            threadPoolService.tesTask1(j);
+        }
+    }
+
+
+    @Test
+    public void test6() throws Exception {
+        List<Future<Integer>> list = new ArrayList<>();
+        CountDownLatch latch = new CountDownLatch(100);
+        log.info("开始时任务数：{}", latch.getCount());
+        for (int j = 0; j < 100; j++) {
+            Future<Integer> future = threadPoolService.tesTask2(j, latch);
+            list.add(future);
+        }
+        try {
+            latch.await();
+            log.info("所有线程执行完毕，{}", latch.getCount());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        for (Future<Integer> future : list) {
+            log.info(future.get().toString());
+        }
+
     }
 }
