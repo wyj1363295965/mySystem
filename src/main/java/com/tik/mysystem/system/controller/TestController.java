@@ -2,8 +2,10 @@ package com.tik.mysystem.system.controller;
 
 import com.tik.mysystem.system.entity.WorkWxNotifyVo;
 import com.tik.mysystem.system.hystrix.RequestCommand;
+import com.tik.mysystem.system.service.HystrixService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,9 @@ import java.io.InputStream;
 @Slf4j
 public class TestController {
 
+
+    @Reference
+    private HystrixService hystrixService;
 
     @PostMapping("/register")
     @PreAuthorize("hasAnyRole('TEST')")
@@ -49,7 +54,6 @@ public class TestController {
 
     @RequestMapping(path = "/hystrix", method = RequestMethod.GET)
     public String getChangeEventData1(@RequestParam String name) {
-        RequestCommand command = new RequestCommand(name);
-        return command.execute();
+        return hystrixService.getChangeEventData1(name);
     }
 }
