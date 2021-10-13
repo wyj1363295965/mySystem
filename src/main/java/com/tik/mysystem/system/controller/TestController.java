@@ -6,6 +6,7 @@ import com.tik.mysystem.system.service.HystrixService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,8 @@ import java.io.InputStream;
 public class TestController {
 
 
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
     @Reference
     private HystrixService hystrixService;
 
@@ -55,5 +58,10 @@ public class TestController {
     @RequestMapping(path = "/hystrix", method = RequestMethod.GET)
     public String getChangeEventData1(@RequestParam String name) {
         return hystrixService.getChangeEventData1(name);
+    }
+
+    @RequestMapping(path = "/rabbitMq", method = RequestMethod.GET)
+    public void sendMessage(@RequestParam String name) {
+        rabbitTemplate.convertAndSend("myKey", name);
     }
 }

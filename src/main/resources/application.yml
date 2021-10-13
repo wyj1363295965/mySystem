@@ -38,6 +38,16 @@ spring:
     # 解决Bean重复定义问题
     allow-bean-definition-overriding: true
 
+  rabbitmq:
+    addresses: 120.24.224.90:5672
+    username: admin
+    password: admin
+    virtual-host: /
+    listener:
+      direct:
+        auto-startup: true
+        missing-queues-fatal: true
+
 server:
   port: 8080
 

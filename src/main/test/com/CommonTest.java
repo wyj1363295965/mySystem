@@ -9,6 +9,7 @@ import com.tik.mysystem.system.service.ThreadPoolService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -31,6 +32,8 @@ public class CommonTest {
     private FreightConfigMapper freightConfigMapper;
     @Autowired
     private ThreadPoolService threadPoolService;
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     public static void main(String[] args) {
         double a = 0.211;
@@ -115,5 +118,10 @@ public class CommonTest {
             log.info(future.get().toString());
         }
 
+    }
+
+    @Test
+    public void test7() throws Exception {
+        rabbitTemplate.convertAndSend("myKey", "test");
     }
 }
