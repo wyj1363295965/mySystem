@@ -1,19 +1,20 @@
 package com.tik.mysystem.system.controller;
 
+import com.tik.mysystem.config.interceptor.LoginRequired;
 import com.tik.mysystem.system.entity.WorkWxNotifyVo;
-import com.tik.mysystem.system.hystrix.RequestCommand;
 import com.tik.mysystem.system.service.HystrixService;
+import com.tik.mysystem.system.service.SynchronizedService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.apache.commons.io.IOUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -24,10 +25,12 @@ import java.io.InputStream;
 public class TestController {
 
 
+    //    @Autowired
+//    private RabbitTemplate rabbitTemplate;
     @Autowired
-    private RabbitTemplate rabbitTemplate;
-    @Reference
     private HystrixService hystrixService;
+    @Autowired
+    private SynchronizedService synchronizedService;
 
     @PostMapping("/register")
     @PreAuthorize("hasAnyRole('TEST')")
@@ -38,8 +41,14 @@ public class TestController {
 
     //@GetMapping("/hello ")  加空格404
     @GetMapping("/hello")
-    public String sayHello() {
-        return "hello";
+    @LoginRequired(loginSuccess = true)
+    public String sayHello() throws InterruptedException {
+        try {
+            return "hello";
+        } finally {
+            Thread.sleep(1000 * 5);
+            System.out.println("finally执行");
+        }
     }
 
     @RequestMapping(path = "/workWxNotify", method = RequestMethod.POST)
@@ -60,8 +69,23 @@ public class TestController {
         return hystrixService.getChangeEventData1(name);
     }
 
-    @RequestMapping(path = "/rabbitMq", method = RequestMethod.GET)
-    public void sendMessage(@RequestParam String name) {
-        rabbitTemplate.convertAndSend("myKey", name);
+//    @RequestMapping(path = "/rabbitMq", method = RequestMethod.GET)
+//    public void sendMessage(@RequestParam String name) {
+//        rabbitTemplate.convertAndSend("myKey", name);
+//    }
+
+
+    @RequestMapping(path = "/synchronized", method = RequestMethod.GET)
+    public String synchronizedMethod(@RequestParam String code) throws Exception {
+        return synchronizedService.synchronizedMethod(code).get();
+    }
+
+
+    @RequestMapping(path = "/uploadFile", method = RequestMethod.POST)
+    public void uploadFile(@RequestParam MultipartFile pic) throws Exception {
+        File file = new File("D:\\wyj\\文档\\" + pic.getOriginalFilename());
+        pic.transferTo(file);
+        FileSystemResource fs1 = new FileSystemResource(file);
+        System.out.println(fs1);
     }
 }

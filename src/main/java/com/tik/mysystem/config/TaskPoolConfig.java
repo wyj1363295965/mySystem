@@ -15,8 +15,8 @@ public class TaskPoolConfig {
     @Bean("taskExecutor")
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(50);//线程池核心线程的数量，默认值为1（这就是默认情况下的异步线程池配置使得线程不能被重用的原因）
-        executor.setMaxPoolSize(200);//线程池维护的线程的最大数量，只有当核心线程都被用完并且缓冲队列满后，才会开始申超过请核心线程数的线程，默认值为Integer.MAX_VALUE
+        executor.setCorePoolSize(200);//线程池核心线程的数量，默认值为1（这就是默认情况下的异步线程池配置使得线程不能被重用的原因）
+        executor.setMaxPoolSize(300);//线程池维护的线程的最大数量，只有当核心线程都被用完并且缓冲队列满后，才会开始申超过请核心线程数的线程，默认值为Integer.MAX_VALUE
         executor.setQueueCapacity(25);//缓冲队列
         executor.setKeepAliveSeconds(200);//超出核心线程数外的线程在空闲时候的最大存活时间，默认为60秒
         executor.setThreadNamePrefix("asyncThread");//线程名前缀

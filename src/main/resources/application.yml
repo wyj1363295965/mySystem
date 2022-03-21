@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: local
   data:
     neo4j:
       #      neo4juri: bolt://192.168.10.183:7687
@@ -38,15 +40,15 @@ spring:
     # 解决Bean重复定义问题
     allow-bean-definition-overriding: true
 
-  rabbitmq:
-    addresses: 120.24.224.90:5672
-    username: admin
-    password: admin
-    virtual-host: /
-    listener:
-      direct:
-        auto-startup: true
-        missing-queues-fatal: true
+#  rabbitmq:
+#    addresses: 120.24.224.90:5672
+#    username: admin
+#    password: admin
+#    virtual-host: /
+#    listener:
+#      direct:
+#        auto-startup: true
+#        missing-queues-fatal: true
 
 server:
   port: 8080
@@ -57,17 +59,17 @@ server:
 
 
 
-dubbo:
-  # 配置服务信息
-  application:
-    name: dubbo-provider
-    # 禁用QOS同一台机器可能会有端口冲突现象
-    qos-enable: false
-    qos-accept-foreign-ip: false
-  # 配置注册中心
-  registry:
-    address: nacos://120.24.224.90:8848
-  # 设置协议-协议由提供方指定消费方被动接受
-  protocol:
-    name: dubbo
-    port: 20880
+#dubbo:
+#  # 配置服务信息
+#  application:
+#    name: dubbo-provider
+#    # 禁用QOS同一台机器可能会有端口冲突现象
+#    qos-enable: false
+#    qos-accept-foreign-ip: false
+#  # 配置注册中心
+#  registry:
+#    address: nacos://120.24.224.90:8848
+#  # 设置协议-协议由提供方指定消费方被动接受
+#  protocol:
+#    name: dubbo
+#    port: 20880

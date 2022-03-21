@@ -3,6 +3,7 @@ package com.tik.mysystem.system.entity;
 
 import com.tik.mysystem.system.enums.UserStatus;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "user_jwt")
+@Accessors(chain = true)
 public class User {
 
     @Id

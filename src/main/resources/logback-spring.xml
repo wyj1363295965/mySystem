@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="false" debug="false">
+    <property name="appName" value="mySystem"/>
+    <contextName>${appName}</contextName>
+    <property name="log.path" value="/opt/logs/${appName}"/>
+    <!--特殊包名的日志级别-->
+    <logger name="com.baidu.fsg.uid.buffer" level="ERROR" additivity="false"/>
+    <logger name="com.alibaba.nacos.client" level="WARN" additivity="false"/>
+    <logger name="org.apache.dubbo.registry.nacos" level="WARN" additivity="false"/>
+    <logger name="org.apache.dubbo.metadata" level="WARN" additivity="false"/>
+    <logger name="org.apache.dubbo.config" level="WARN" additivity="false"/>
+    <logger name="org.springframework.kafka" level="WARN" additivity="false"/>
+    <logger name="org.apache.kafka" level="WARN" additivity="false"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %contextName [%boldYellow(%thread)] %highlight(%-5level) %boldGreen(%logger{36}) - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <file>${log.path}/logback.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <!-- 日志文件保留天数 -->
+            <MaxHistory>30</MaxHistory>
+            <!-- 文件大小触发重写新文件 -->
+            <MaxFileSize>50MB</MaxFileSize>
+            <totalSizeCap>200MB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <springProfile name="local">
+        <root level="INFO">
+            <appender-ref ref="console"/>
+        </root>
+        <root level="INFO">
+            <appender-ref ref="file"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="console"/>
+        </root>
+    </springProfile>
+
+</configuration>
