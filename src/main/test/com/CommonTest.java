@@ -1,5 +1,7 @@
 package com;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.tik.mysystem.MainApplication;
 import com.tik.mysystem.generator.mapper.FreightConfigMapper;
@@ -271,7 +273,7 @@ public class CommonTest {
 
     @Test
     public void test16() throws IOException {
-        MultipartFile image=new MultipartFile() {
+        MultipartFile image = new MultipartFile() {
             @Override
             public String getName() {
                 return null;
@@ -316,6 +318,13 @@ public class CommonTest {
         image.transferTo(file);
         FileSystemResource fs1 = new FileSystemResource(file);
         System.out.println(fs1);
+    }
+
+
+    @Test
+    public void test17() {
+        JSONObject object = JSON.parseObject(null);
+        System.out.println(object);
     }
 
 }
