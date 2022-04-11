@@ -8,19 +8,24 @@ spring:
       password: 123456
       uri: http://192.168.10.183:7474
 
-  #  datasource:
-  #    driver-class-name: org.h2.Driver
-  #    schema: classpath:/db/schema-h2.sql
-  #    data: classpath:/db/data-h2.sql
-  #    url: jdbc:h2:mem:test
-  #    username: root
-  #    password: 1234
-  #
-  #  h2:
-  #    console:
-  #      settings:
-  #        web-allow-others: true
-  #      enabled: true
+    datasource:
+      driver-class-name: org.h2.Driver
+      schema: classpath:/db/schema-h2.sql
+      data: classpath:/db/data-h2.sql
+      url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      username: root
+      password: 1234
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      settings:
+        web-allow-others: true
+      enabled: true
 
   #  datasource:
   #    driver-class-name: com.mysql.jdbc.Driver
@@ -30,11 +35,6 @@ spring:
   #      username: root
   #      password: root
 
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    open-in-view: false
 
   main:
     # 解决Bean重复定义问题
