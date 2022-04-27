@@ -24,10 +24,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,9 +34,8 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 
@@ -321,10 +316,51 @@ public class CommonTest {
     }
 
 
+    /**
+     * 1.统计线程成功率
+     * 2.
+     */
     @Test
-    public void test17() {
-        JSONObject object = JSON.parseObject(null);
-        System.out.println(object);
+    public void test17() throws Exception {
+//        JSONObject object = JSON.parseObject(null);
+//        System.out.println(object);
+//        AtomicInteger j = new AtomicInteger();
+//        CountDownLatch latch = new CountDownLatch(10);
+//        for (int i = 1; i < 11; i++) {
+//            threadPoolService.tesTask3(j, latch);
+//        }
+//        try {
+//            latch.await();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        log.info("成功{}个", j.get());
+//
+//        Executors.newSingleThreadExecutor().submit(() -> {
+//
+//        });
+
+        Thread thread1 = new Thread(() -> {
+            for (int i = 1; i < 4; i++) {
+                log.info("线程1：{}", i);
+            }
+            log.info("线程1执行完毕");
+        });
+
+        Thread thread2 = new Thread(() -> {
+            for (int i = 1; i < 4; i++) {
+                log.info("线程2：{}", i);
+            }
+            log.info("线程2执行完毕");
+        });
+        thread1.start();
+        thread2.start();
+
+        //join阻塞当前线程
+        thread1.join();
+        thread2.join();
+        log.info("所有线程执行完毕");
+
     }
 
 }
