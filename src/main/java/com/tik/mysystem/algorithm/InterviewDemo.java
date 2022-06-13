@@ -1,6 +1,4 @@
-package com.tik.mysystem;
-
-import com.google.common.collect.Lists;
+package com.tik.mysystem.algorithm;
 
 import java.util.*;
 

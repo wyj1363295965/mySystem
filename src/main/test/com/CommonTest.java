@@ -21,6 +21,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.FileSystemResource;
@@ -35,7 +36,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 
@@ -55,9 +55,12 @@ public class CommonTest {
     private UtilStruct utilStruct;
     @Autowired
     private SynchronizedService synchronizedService;
+//    @Autowired
+//    private RedisTemplate<String,Object> redisTemplate;
+//    @Autowired
+//    private Redisson redisson;
 
-
-    public static void main(String[] args) {
+    public synchronized static void main(String[] args) {
         double a = 0.211;
         double b = 0.30;
         System.out.println(a * b);
@@ -199,6 +202,7 @@ public class CommonTest {
         Executors.newSingleThreadExecutor().submit(() -> {
             hystrixService.getChangeEventData1(get);
         });
+        hystrixService.test();
         testStr.remove();
     }
 
@@ -363,4 +367,13 @@ public class CommonTest {
 
     }
 
+    @Test
+    public void test18() {
+        List<String> list = new ArrayList<>();
+        //list.sort();
+
+        Collections.sort(list);//归并排序
+
+
+    }
 }
