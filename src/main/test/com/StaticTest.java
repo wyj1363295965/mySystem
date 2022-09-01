@@ -1,6 +1,8 @@
 package com;
 
 import com.tik.mysystem.MainApplication;
+import com.tik.mysystem.algorithm.SingletonDemo3;
+import com.tik.mysystem.system.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,5 +41,11 @@ public class StaticTest {
         }
     }
 
+    @Test
+    public void test1() {
+        User uniqueUser1 = SingletonDemo3.INSTANCE.getInstance();
+        User uniqueUser2 = SingletonDemo3.INSTANCE.getInstance();
+        System.out.println(uniqueUser1 == uniqueUser2);
+    }
 
 }
