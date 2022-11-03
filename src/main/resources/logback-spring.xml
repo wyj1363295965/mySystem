@@ -17,10 +17,10 @@
             <level>debug</level>
         </filter>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>debug</level>
+            <level>info</level>
         </filter>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %contextName [%boldYellow(%thread)] %highlight(%-5level) %boldGreen(%logger{36}) - %msg%n
+            <pattern>%date [%boldYellow(%thread)] %highlight(%-5level) %boldGreen(%logger{36}) %L - %msg%n
             </pattern>
         </encoder>
     </appender>
