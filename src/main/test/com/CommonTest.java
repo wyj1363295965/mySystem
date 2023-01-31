@@ -1,10 +1,7 @@
 package com;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.tik.mysystem.MainApplication;
-import com.tik.mysystem.generator.mapper.FreightConfigMapper;
 import com.tik.mysystem.system.entity.MyGeneric;
 import com.tik.mysystem.system.entity.User;
 import com.tik.mysystem.system.entity.User1;
@@ -21,7 +18,6 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.FileSystemResource;
@@ -35,7 +31,9 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 
@@ -45,8 +43,7 @@ import java.util.stream.Collectors;
 public class CommonTest {
 
     ThreadLocal<String> testStr = new ThreadLocal<>();
-    @Autowired
-    private FreightConfigMapper freightConfigMapper;
+
     @Autowired
     private ThreadPoolService threadPoolService;
     @Autowired
@@ -111,7 +108,6 @@ public class CommonTest {
 
     @Test
     public void test3() {
-        System.out.println(freightConfigMapper.selectByPrimaryKey(3));
     }
 
     @Test
