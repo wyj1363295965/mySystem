@@ -45,6 +45,7 @@ public class StaticTest {
     public void test1() {
         User uniqueUser1 = SingletonDemo3.INSTANCE.getInstance();
         User uniqueUser2 = SingletonDemo3.INSTANCE.getInstance();
+        User instance = SingletonDemo3.INSTANCE.getInstance();
         System.out.println(uniqueUser1 == uniqueUser2);
     }
 
