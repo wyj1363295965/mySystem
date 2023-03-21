@@ -1,13 +1,5 @@
 spring:
-  profiles:
-    active: dev
   data:
-    neo4j:
-      #      neo4juri: bolt://192.168.10.183:7687
-      username: neo4j
-      password: 123456
-      uri: http://192.168.10.183:7474
-
     datasource:
       driver-class-name: org.h2.Driver
       schema: classpath:/db/schema-h2.sql
