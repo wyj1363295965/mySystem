@@ -10,19 +10,26 @@ public class SimpleFactoryPattern {
         Animal dog = new Dog();
     }
 
-    class Animal {
+    public class Animal {
         void eat() {
         }
     }
 
-    class Dog extends Animal {
+    public class Dog extends Animal {
         @Override
         void eat() {
             //狗的吃方法
         }
     }
 
-    class Cat extends Animal {
+    public class Corgi extends Dog {
+        @Override
+        void eat() {
+            //狗的吃方法
+        }
+    }
+
+    public class Cat extends Animal {
         @Override
         void eat() {
             //猫的吃方法
