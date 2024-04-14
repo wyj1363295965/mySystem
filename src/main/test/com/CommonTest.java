@@ -1,5 +1,7 @@
 package com;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.tik.mysystem.MainApplication;
 import com.tik.mysystem.system.entity.MyGeneric;
@@ -34,6 +36,7 @@ import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 
@@ -322,23 +325,23 @@ public class CommonTest {
      */
     @Test
     public void test17() throws Exception {
-//        JSONObject object = JSON.parseObject(null);
-//        System.out.println(object);
-//        AtomicInteger j = new AtomicInteger();
-//        CountDownLatch latch = new CountDownLatch(10);
-//        for (int i = 1; i < 11; i++) {
-//            threadPoolService.tesTask3(j, latch);
-//        }
-//        try {
-//            latch.await();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        log.info("成功{}个", j.get());
-//
-//        Executors.newSingleThreadExecutor().submit(() -> {
-//
-//        });
+        JSONObject object = JSON.parseObject(null);
+        System.out.println(object);
+        AtomicInteger j = new AtomicInteger();
+        CountDownLatch latch = new CountDownLatch(10);
+        for (int i = 1; i < 11; i++) {
+            threadPoolService.tesTask3(j, latch);
+        }
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("成功{}个", j.get());
+
+        Executors.newSingleThreadExecutor().submit(() -> {
+
+        });
 
         Thread thread1 = new Thread(() -> {
             for (int i = 1; i < 4; i++) {
